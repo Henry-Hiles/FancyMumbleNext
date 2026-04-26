@@ -32,8 +32,23 @@
           ...
         }:
         {
-          packages = {
+          packages = rec {
             default = pkgs.callPackage ./nix/package.nix { inherit inputs; };
+            flatpak = inputs.nix2flatpak.lib.${system}.mkFlatpak {
+              appName = "Fancy Mumble";
+              developer = "Fancy-Mumble";
+              appId = "com.fancy_mumble.FancyMumble";
+              package = default;
+              runtime = "org.gnome.Platform/49";
+              permissions = {
+                share = [ "network" ];
+                sockets = [
+                  "fallback-x11"
+                  "wayland"
+                ];
+                devices = [ "dri" ];
+              };
+            };
           };
         };
     };
