@@ -54,3 +54,7 @@ coverage/
 *.log
 
 google-services.json
+output.txt
+clippy_out.txt
+cargo_check_err.txt
+.direnv/
